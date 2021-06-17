@@ -20,7 +20,6 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -31,25 +30,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public void add(User user) {
         entityManager.persist(user);
     }
 
     @Override
-    @Transactional
     public void delete(User user) {
         entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
     }
 
     @Override
-    @Transactional
     public void update(User user) {
         entityManager.merge(user);
     }
 
     @Override
-    @Transactional
     public User getById(long id) {
         return entityManager.find(User.class, id);
     }
